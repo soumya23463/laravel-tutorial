@@ -12,31 +12,24 @@ Route::get('/', function () {
 Route::view('/', 'welcome');
 
 // Route::get('/about/{id?}', function (string $id=null) {
-//     return "hello world $id";
-// });
-
-// Route::get('/about/{id?}/comment/{commentId?}', function (string $id=null,string $commentId=null) {
-//     return "hello world $id $commentId";
-// })->where(['id' => '[0-9]+', 'commentId' => '[0-9]+'])->name('about');
-
-// Route::get('/about/{id?}/comment/{commentId?}', function (string $id=null,string $commentId=null) {
-//     return "hello world $id $commentId";
-// })->whereNumber('id')->whereNumber('commentId')
-//     ->name('about');
+//     return view('about');
+// })->name('about');
 
 
-// Route::get('/about/{id?}/comment/{commentId?}', function (string $id=null,string $commentId=null) {
-//     return "hello world $id $commentId";
-// })->whereAlphaNumeric('id')->whereAlphaNumeric('commentId')
-//     ->name('about');
+Route::prefix('page')->group(function () {
+    Route::get('/about', function () {
+        return "about";
+    })->name('about');
+    Route::get('/contact', function () {
+        return "contact";
+    })->name('contact');
+    Route::get('/services', function () {
+        return "services";
+    })->name('services');
+
+});
 
 
-    // Route::get('/about/{id?}/comment/{commentId?}', function (string $id=null,string $commentId=null) {
-    //     return "hello world $id $commentId";
-    // })->whereIn('id',['movie','song'])->whereIn('commentId',['movie','song'])->name('about');
-
-
-
-    Route::get('/about/{id?}/comment/{commentId?}', function (string $id=null,string $commentId=null) {
-        return "hello world $id $commentId";
-    })->where('id','[a-zA-Z]+')->where('commentId','[a-zA-Z]+')->name('about');
+Route::fallback(function () {
+    return "404";
+});
