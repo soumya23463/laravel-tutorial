@@ -6,9 +6,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 Route::get('/about', function () {
-    return view('layout.about');
+    return view('about');
 })->name('about');
 
 Route::get('/post', function () {
-    return view('layout.post');
+    return view('post');
 })->name('post');

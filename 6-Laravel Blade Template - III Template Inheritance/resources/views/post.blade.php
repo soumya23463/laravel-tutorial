@@ -1,6 +1,6 @@
 @extends('layouts.masterlayout')
 @section('content')
-<h1>Home Page</h1>
+<h1>Post Page</h1>
 <p>
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti dolores, doloribus accusamus velit debitis adipisci quo tenetur aliquam at laborum ullam assumenda nulla blanditiis.
     Veniam delectus magni quisquam numquam id pariatur voluptates cumque minima nemo vitae eveniet sint nobis veritatis omnis unde, natus rem, praesentium debitis quia!
@@ -10,6 +10,7 @@
 
 @endsection
 
+
 @section('title')
-home page
+Post Page
 @endsection
