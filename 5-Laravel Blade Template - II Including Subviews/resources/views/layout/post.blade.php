@@ -1,6 +1,6 @@
 @include('pages.header')
             <article>
-                <h1>Home Page</h1>
+                <h1>Post Page</h1>
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti dolores, doloribus accusamus velit debitis adipisci quo tenetur aliquam at laborum ullam assumenda nulla blanditiis.
                     Veniam delectus magni quisquam numquam id pariatur voluptates cumque minima nemo vitae eveniet sint nobis veritatis omnis unde, natus rem, praesentium debitis quia!
@@ -8,5 +8,6 @@
                     Voluptas commodi explicabo praesentium exercitationem culpa tenetur dolorem officiis? Impedit, accusamus explicabo repellendus labore odit, itaque suscipit incidunt dignissimos, dolore autem fugiat aperiam?
                 </p>
             </article>
- @include('pages.sidebar')
+
+@include('pages.sidebar')
 @include('pages.footer')
