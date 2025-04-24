@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -12,7 +13,20 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        // $posts = Post::with('student')->get();
+        // $posts = Post::with('student')->find(2);
+
+        // $posts = Post::with('student')->find(2);
+
+        // $posts = Post::withWhereHas('student',function($query){
+        //     $query->where('name','Giuseppe Brown');
+        // })
+
+        // ->get();
+
+        $student=Student::where("name","Giuseppe Brown")->first();
+        $posts=Post::whereBelongsTo($student)->get();
+        return $posts;
     }
 
     /**

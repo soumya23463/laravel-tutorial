@@ -13,28 +13,24 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = student::
-        with('posts')->get();
+        // $students = student::
+        // with('posts')->get();
 
         // $students = student::
-        // with('contacts')->find(2);
+        // with('posts')->find(2);
 
-        // $students = student::with('contacts')
-        // ->where('age','=',29)
-        // ->find(2);
+        // $students = student::
+        // doesntHave('posts')->get();
 
-        //  echo $students->contacts->phone;
+        // $students=student::has('posts')->get();
 
+        //  $students=student::has('posts','=',2)->with('posts')->get();
 
-        // $students=Student::where('age','=',29)
-        // ->withWhereHas('contacts', function ($query) {
-        //     $query->where('phone', '=', '909-265-3248');
-        // })->get();
+        // $students=student::withCount('posts')->with('posts')->get();
 
-        // $students=Student::where('age','=',29)
-        // ->WhereHas('contacts', function ($query) {
-        //     $query->where('phone', '=', '909-265-3248');
-        // })->get();
+        $students=student::
+        select('id','name')
+        ->withCount('posts')->with('posts')->get();
 
           return $students;
     }
@@ -44,15 +40,34 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $student=Student::create([
-            'name' => fake()->name(),
-            'age' => fake()->numberBetween(18, 30),
-            'gender'=> 'Female'
-            ]);
-        $student->contacts()->create([
-            'phone' => fake()->phoneNumber(),
-            'email' => fake()->unique()->safeEmail()
-        ]);
+        // $student=Student::create([
+        //     'name' => fake()->name(),
+        //     'age' => fake()->numberBetween(18, 30),
+        //     'gender'=> 'Female'
+        //     ]);
+        // $student->posts()->create([
+        //     'title' => fake()->sentence(3),
+        //     'description' => fake()->paragraph(3),
+        // ]);
+        // return $student;
+
+        // $student=Student::find(2);
+        // $student->posts()->create([
+        //     'title' => fake()->sentence(3),
+        //     'description' => fake()->paragraph(3),
+        // ]);
+        $student=Student::find(2);
+        $student->posts()->createMany([
+            [
+            'title' => fake()->sentence(3),
+            'description' => fake()->paragraph(3),
+            ],
+        [
+            'title' => fake()->sentence(3),
+            'description' => fake()->paragraph(3),
+        ]
+        ]
+    );
         return $student;
     }
 
