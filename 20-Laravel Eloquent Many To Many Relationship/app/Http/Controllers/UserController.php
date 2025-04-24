@@ -13,8 +13,19 @@ class UserController extends Controller
     public function index()
     {
 
-        $users= User::get();
-       return view('users.index',compact('users'));
+        // $users= User::find(2);
+        $users = User::with('roles')->get(); // eager load roles
+
+        // foreach ($users as $user) {
+        //     echo "User: {$user->name}<br>";
+        //     foreach ($user->roles as $role) {
+        //         echo "- Role: {$role->role_name}<br>";
+        //     }
+        //     echo "<br>";
+        // }
+
+    //    return $users->roles;
+
     }
 
     /**
@@ -22,7 +33,12 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $user= User::find(2);
+        // $user->roles()->attach(1);
+        // $user->roles()->detach(1); // Detach the role with ID 1
+        $user->roles()->sync(1) ;// Detach the role with ID 1
+
+        return $user->roles; // Return the roles associated with that user
     }
 
     /**

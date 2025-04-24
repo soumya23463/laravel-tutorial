@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\Role;
+
 class UserSeeder extends Seeder
 {
     /**
@@ -12,12 +13,26 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 10; $i++) {
-            User::create([
+        // Create roles if not exists
+        $roleNames = ['Admin', 'Editor', 'User'];
+
+        foreach ($roleNames as $name) {
+            Role::firstOrCreate(['role_name' => $name]);
+        }
+
+        // Fetch the actual Role models as a collection
+        $roles = Role::all();
+
+        for ($i = 0; $i < 4; $i++) {
+            $user = User::create([
                 'name' => fake()->name(),
                 'email' => fake()->unique()->safeEmail(),
-                'password' => bcrypt('password'), // password
             ]);
+
+            // Attach 1 or 2 random roles
+            $user->roles()->attach(
+                $roles->random(rand(1, 2))->pluck('id')->toArray()
+            );
         }
     }
 }
