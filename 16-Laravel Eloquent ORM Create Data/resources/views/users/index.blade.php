@@ -27,6 +27,10 @@
                             <th scope="col">Email</th>
                             <th scope="col">Created At</th>
                             <th scope="col">Updated At</th>
+                            <th scope="col">Update</th>
+                            <th scope="col">Delete</th>
+                            <th scope="col">View</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -37,6 +41,19 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->created_at }}</td>
                             <td>{{ $user->updated_at }}</td>
+                            <td>
+                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Update</a>
+                            </td>
+                            <td>
+                                <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
+                            <td>
+                                <a href="{{ route('users.show', $user->id) }}" class="btn btn-info">View</a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

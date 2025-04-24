@@ -12,47 +12,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $users = User::all();
-        // // return $users;
-        // // foreach($users as $user) {
-        // //     echo $user->name . "<br>";
-        // //     echo $user->email . "<br>";
-        // // }
 
-        // return view('users.index', compact('users'));
-
-        // $users=User::find([2,4],['name','email']);
-        //    $users= User::count();
-        // $users= User::min('id');
-        // $users= User::max('id');
-        //$users= User::sum('id');
-        // $users= User::avg('id');
-        //  $users= User::where('name', 'Mr. King Macejkovic')->get();
-        //  $users= User::where([['name', 'Mr. King Macejkovic'],['id',1]])->first();
-        // $users= User::where([['name', 'Mr. King Macejkovic'],['id',1]])->first();
-        // $users= User::whereName('Mr. King Macejkovic')->first();
-        // $users= User::where('name', 'Mr. King Macejkovic')
-        // ->select('id','name','email')
-        // ->toRawSql();
-        // $users= User::where('name', 'Mr. King Macejkovic')
-        // ->select('id','name','email')
-        // ->toSql();
-        // $users= User::where('name', 'Mr. King Macejkovic')
-        // ->select('id','name','email')
-        // ->get();
-        // $users= User::where('name', 'Mr. King Macejkovic')
-        // ->select('id','name','email')
-        // ->dd();
-        // $users= User::where('name', 'Mr. King Macejkovic')
-        // ->select('id','name','email')
-        // ->ddRawSql();
-        // $users= User::where('id','>', '0')
-        // ->select('id','name','email')
-        // ->get();
-        $users= User::whereBetween('id',[2,8])
-        ->select('id','name','email')
-        ->get();
-        return $users;
+        $users= User::get();
+       return view('users.index',compact('users'));
     }
 
     /**
