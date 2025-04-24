@@ -4,7 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class student extends Model
+class Student extends Model
 {
-    //
+    protected $fillable = [
+        'name',
+        'age',
+        'gender'
+    ];
+    public function contacts()
+    {
+        return $this->hasOne(Contact::class);
+    }
 }
