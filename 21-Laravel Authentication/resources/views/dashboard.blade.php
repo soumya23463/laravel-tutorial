@@ -9,9 +9,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="p-4">
+    <h1>Dashboard</h1>
+    <p>Welcome, {{ Auth::user()->name }}!</p>
+    <p>Your email: {{ Auth::user()->email }}</p>
+    <p>Your ID: {{ Auth::user()->id }}</p>
 
-    <a type="button" href="{{ route('register') }}" class="btn btn-primary me-2">Register</a>
-    <a type="button" href="{{ route('login') }}" class="btn btn-success">Login</a>
+    <a type="button" href="{{ route('inner') }}" class="btn btn-primary me-2">Inner Page</a>
+    <a type="button" href="{{ route('logout') }}" class="btn btn-success">Logout</a>
 
     </body>
 </html>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -13,18 +14,7 @@ class UserController extends Controller
     public function index()
     {
 
-        // $users= User::find(2);
-        $users = User::with('roles')->get(); // eager load roles
 
-        // foreach ($users as $user) {
-        //     echo "User: {$user->name}<br>";
-        //     foreach ($user->roles as $role) {
-        //         echo "- Role: {$role->role_name}<br>";
-        //     }
-        //     echo "<br>";
-        // }
-
-    //    return $users->roles;
 
     }
 
@@ -33,20 +23,66 @@ class UserController extends Controller
      */
     public function create()
     {
-        $user= User::find(2);
-        // $user->roles()->attach(1);
-        // $user->roles()->detach(1); // Detach the role with ID 1
-        $user->roles()->sync(1) ;// Detach the role with ID 1
-
-        return $user->roles; // Return the roles associated with that user
-    }
+          }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $data=$request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = User::create($data);
+
+        return redirect()->route('login')->with('success', 'User login successfully.');
+    }
+    public function login(Request $request)
+    {
+
+        $data=$request->validate([
+            'email' => 'required|string|email|max:255|exists:users',
+            'password' => 'required|string|min:8',
+        ]);
+        if(Auth::attempt($data))
+        {
+            return redirect()->route('dashboard')->with('success', 'Login successful.');
+        }else{
+            return redirect()->route('login')->with('error', 'Invalid credentials.');
+        }
+    }
+
+    public function dashboardPage()
+    {
+        if (Auth::check()) {
+            return view('dashboard');
+        } else {
+            return redirect()->route('login')->with('error', 'Please login to access the dashboard.');
+        }
+    }
+
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login')->with('success', 'Logout successful.');
+    }
+
+    public function inner()
+    {
+        // if (Auth::check()) {
+        //     return view('inner');
+        // } else {
+        //     return redirect()->route('login')->with('error', 'Please login to access the inner page.');
+        // }
+        if (Auth::guest()) {
+            return view('inner');
+        } else {
+            return redirect()->route('login')->with('error', 'Please login to access the inner page.');
+        }
     }
 
     /**

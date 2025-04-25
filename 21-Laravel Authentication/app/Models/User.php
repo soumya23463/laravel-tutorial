@@ -2,17 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+class User extends Authenticatable
 {
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'user__roles');
-    }
-    // public function hasRole($roleName)
-    // {
-    //     return $this->roles()->where('role_name', $roleName)->exists();
-    // }
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected function casts()
+    {
+        return [
+            'password' => 'hashed',
+        ];
+    }
 }
