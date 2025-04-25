@@ -25,7 +25,7 @@ Route::post('/loginSave', [UserController::class, 'login'])->name('loginSave');
 // Route::get('/dashboard', [UserController::class, 'dashboardPage'])->name('dashboard')->middleware(ValidUser::class)->middleware(TestUser::class);
 // Route::get('/dashboard', [UserController::class, 'dashboardPage'])->name('dashboard')->middleware(['isUserValid:admin,reder',TestUser::class]);
 
-Route::get('/dashboard', [UserController::class, 'dashboardPage'])->name('dashboard')->middleware(["auth","isUserValid:admin"]);
+Route::get('/dashboard', [UserController::class, 'dashboardPage'])->name('dashboard')->middleware(["auth",ValidUser::class]);
 //  Route::get('/dashboard', [UserController::class, 'dashboardPage'])->name('dashboard')->middleware(['isUserValid',TestUser::class]);
 // Route::middleware(['isUserValid', TestUser::class])->group(function () {
 //     Route::get('/dashboard', [UserController::class, 'dashboardPage'])->name('dashboard');

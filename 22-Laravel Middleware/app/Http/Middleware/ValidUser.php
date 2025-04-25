@@ -14,16 +14,16 @@ class ValidUser
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, string $role): Response
+    public function handle(Request $request, Closure $next): Response
     {
-
+        echo Auth::user()->role;
             // if (Auth::check() && Auth::user()->role == $role) {
             //     return $next($request);
             // } else {
             //     return redirect()->route('login')->with('error', 'Please login to access the dashboard.');
             // }
 
-            if (Auth::user()->role == $role) {
+            if (Auth::user()->role === 'admin') {
                 return $next($request);
             }if (Auth::user()->role == "user") {
                 return redirect()->route('user')->with('error', 'Please login to access the dashboard.');
@@ -34,10 +34,10 @@ class ValidUser
             }
     }
 
-    public function terminate(Request $request, Response $response): void
-    {
-        echo "terminate middleware is running<br>";
+    // public function terminate(Request $request, Response $response): void
+    // {
+    //     echo "terminate middleware is running<br>";
 
-    }
+    // }
 
 }

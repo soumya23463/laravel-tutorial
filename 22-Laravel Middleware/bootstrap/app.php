@@ -24,7 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
         //     TestUser::class
         // ])
         // ]);
-        $middleware->append([TestUser::class])
+        // $middleware->append([TestUser::class])
         ]);
 
     })
