@@ -1,49 +1,26 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\RolesController;
-use App\Http\Middleware\ValidUser;
-use App\Http\Middleware\TestUser;
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\TestController;
 
-Route::get('/register', function () {
-    return view('register');
-})->name('register');
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
 
-Route::get('/user', function () {
-    return view('user');
-})->name('user');
+// Route::get('/', function () {
+// //     $value=session()->all();
 
-Route::post('/registerSave', [UserController::class, 'store'])->name('registerSave');
-Route::post('/loginSave', [UserController::class, 'login'])->name('loginSave');
-// Route::get('/dashboard', [UserController::class, 'dashboardPage'])->name('dashboard')->middleware(ValidUser::class)->middleware(TestUser::class);
-// Route::get('/dashboard', [UserController::class, 'dashboardPage'])->name('dashboard')->middleware(['isUserValid:admin,reder',TestUser::class]);
+// //    echo "<pre>";
+// //     print_r($value);
+// //     echo "</pre>";
 
-Route::get('/dashboard', [UserController::class, 'dashboardPage'])->name('dashboard')->middleware(["auth",ValidUser::class]);
-//  Route::get('/dashboard', [UserController::class, 'dashboardPage'])->name('dashboard')->middleware(['isUserValid',TestUser::class]);
-// Route::middleware(['isUserValid', TestUser::class])->group(function () {
-//     Route::get('/dashboard', [UserController::class, 'dashboardPage'])->name('dashboard');
+//     // $value=session()->get('name');
+//     // echo $value;
+//     $value=session('name');
+//     echo $value;
 // });
-
-// Route::middleware(['isUserValid', TestUser::class])->group(function () {
-//     Route::get('/dashboard', [UserController::class, 'dashboardPage'])->name('dashboard')->withoutMiddleware(TestUser::class);
+// Route::get('/set', function () {
+//     session(['name' => 'John Doe']);
+//     return 'Session value set';
 // });
-
-// Route::withoutMiddleware([ TestUser::class])->group(function () {
-//     Route::get('/dashboard', [UserController::class, 'dashboardPage'])->name('dashboard');
-// });
-
-// Route::withoutMiddleware([ TestUser::class])->group(function () {
-//     Route::get('/dashboard', [UserController::class, 'dashboardPage'])->name('dashboard');
-// });
-// Route::middleware(['ok-user'])->group(function () {
-//     Route::get('/dashboard', [UserController::class, 'dashboardPage'])->name('dashboard');
-// });
-Route::get('/logout', [UserController::class, 'logout'])->name('logout');
-Route::get('/inner', [UserController::class, 'inner'])->name('inner');
+Route::get('/set', [TestController::class, 'setSession']);
+Route::get('/get', [TestController::class, 'getSession']);
+Route::get('/destroy', [TestController::class, 'destroySession']);
+Route::get('/index', [TestController::class, 'index']);
