@@ -57,11 +57,11 @@ class UserController extends Controller
 
     public function dashboardPage()
     {
-        if (Auth::check()) {
+        // if (Auth::check()) {
             return view('dashboard');
-        } else {
-            return redirect()->route('login')->with('error', 'Please login to access the dashboard.');
-        }
+        // } else {
+            // return redirect()->route('login')->with('error', 'Please login to access the dashboard.');
+        // }
     }
 
 
