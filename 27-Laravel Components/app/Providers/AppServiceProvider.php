@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Gate;
+use App\Models\User;
+
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * Register any application services.
+     */
+    public function register(): void
+    {
+        //
+    }
+
+    /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
+    {
+        Gate::define('isAdmin', function (User $user) {
+            return $user->role === 'admin';
+        });
+        Gate::define('view-profile', function (User $user, $id) {
+            return $user->id === $id;
+        });
+
+        Gate::before(function (User $user) {
+            echo "before";
+        });
+
+        Gate::after(function (User $user) {
+            echo "after";
+        });
+    }
+}
