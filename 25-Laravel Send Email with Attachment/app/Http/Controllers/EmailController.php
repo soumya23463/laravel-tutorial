@@ -34,4 +34,32 @@ class EmailController extends Controller
             Mail::to($email)->send(new welcomeemail($mailMessage, $subject));
         }
     }
+
+    public function contact()
+    {
+
+        return view('contact');
+    }
+    public function sendAttachment(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'subject' => 'required|string',
+            'message' => 'required|string',
+            'attachment' => 'required|file|mimes:pdf,jpg,png|max:2048',
+        ]);
+
+        $attachment = $request->file('attachment');
+        $fileName = time() . '_' . $attachment->getClientOriginalName();
+        $attachment->move(public_path('upload'), $fileName);
+
+        $adminEmail = "kesarwanisoumya3@gmail.com";
+
+        $response = Mail::to($adminEmail)->send(new welcomeemail($request->all(), $fileName));
+        if ($response) {
+            return back()->with('success', 'Email sent successfully!');
+        } else {
+            return back()->with('error', 'Failed to send email.');
+        }
+    }
 }
