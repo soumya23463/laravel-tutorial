@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Company;
+use App\Models\Customer;
+use App\Models\Order;
 use App\Models\Phone_number;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -21,10 +23,9 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         // Create Users with Companies and Phone Numbers
-        User::factory()
+        Customer::factory()
             ->has(
-                Company::factory()
-                    ->has(Phone_number::factory(1))
+                Order::factory()->count(5), // each customer has 5 orders
             )
             ->count(5) // create 10 users
             ->create();
